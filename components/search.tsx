@@ -1,9 +1,10 @@
-import { isIPv4 } from "is-ip"
-import { useState } from "react"
+import { isIPv4 } from "is-ip";
+import { useState } from "react";
+import { IPdetail } from "../types/interface";
 
 const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
 
-const Search = ({currentIP, setCurrentIP} : any) => {
+const Search = ({ currentIP, setCurrentIP } : { currentIP: IPdetail, setCurrentIP: React.Dispatch<React.SetStateAction<IPdetail>> }) : JSX.Element => {
     const [ip, setIp] = useState("")
     const [isValid, setIsValid] = useState(true)
 

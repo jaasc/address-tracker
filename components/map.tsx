@@ -4,8 +4,9 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { IPdetail } from "../types/interface";
 
-const Map = ({currentIP}:any) => {
+const Map = ({ currentIP } : { currentIP : IPdetail }) : JSX.Element=> {
     var myIcon = L.icon({
         iconUrl: 'marker-icon.png',
         iconSize: [50, 90],
@@ -17,9 +18,9 @@ const Map = ({currentIP}:any) => {
     });
     
     return(
-        <MapContainer center={[currentIP.latitude, currentIP.longitude]} zoom={13} scrollWheelZoom={false} className="h-full w-full">
+        <MapContainer center={[parseFloat(currentIP.latitude), parseFloat(currentIP.longitude)]} zoom={13} scrollWheelZoom={false} className="h-full w-full">
             <Marker 
-                position={[currentIP.latitude, currentIP.longitude]}
+                position={[parseFloat(currentIP.latitude), parseFloat(currentIP.longitude)]}
                 draggable={true}
                 icon={myIcon}
                 >

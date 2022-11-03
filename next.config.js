@@ -4,4 +4,9 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig
+module.exports = nextConfig,
+{
+  env: {
+    GEO_API: process.env.GEO_API
+  }
+}

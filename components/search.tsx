@@ -2,9 +2,8 @@ import { useState } from "react"
 
 const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
 
-const Search = ({detail} : any) => {
+const Search = ({currentIP, setCurrentIP} : any) => {
     const [ip, setIp] = useState("")
-    const [currentIP, setCurrentIP] = useState(detail)
 
     const searchIP = async (e : any) => {
         e.preventDefault()

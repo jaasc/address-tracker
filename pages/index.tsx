@@ -1,15 +1,16 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useState } from 'react';
 import Search from "../components/search";
 
 const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
 
 export default function Home({detail, ip}:any) {
-  const MapWithNoSSR = dynamic(() => import("../components/map"), {
+  const [currentIP, setCurrentIP] = useState(detail)
+
+  const Map = dynamic(() => import("../components/map"), {
     ssr: false
   });
-
-  console.log(ip)
 
   return (
     <>
@@ -17,9 +18,9 @@ export default function Home({detail, ip}:any) {
         <title>IP Address Tracker</title>
       </Head>
       <main className="font-rubik">
-        <Search detail={detail}/>
+        <Search detail={detail} currentIP={currentIP} setCurrentIP={setCurrentIP}/>
         <div id="map" className="h-[80vh] w-full z-0 relative">
-          <MapWithNoSSR/>
+          <Map currentIP={currentIP}/>
         </div>
       </main>
     </>

@@ -5,7 +5,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
-const Map = () => {
+const Map = ({currentIP}:any) => {
     var myIcon = L.icon({
         iconUrl: 'marker-icon.png',
         iconSize: [50, 90],
@@ -17,9 +17,9 @@ const Map = () => {
     });
     
     return(
-        <MapContainer center={[37.42240,-122.08421]} zoom={13} scrollWheelZoom={false} className="h-full w-full">
+        <MapContainer center={[currentIP.latitude, currentIP.longitude]} zoom={13} scrollWheelZoom={false} className="h-full w-full">
             <Marker 
-                position={[37.42240,-122.08421]}
+                position={[currentIP.latitude, currentIP.longitude]}
                 draggable={true}
                 icon={myIcon}
                 >

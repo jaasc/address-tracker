@@ -1,15 +1,24 @@
+import { isIPv4 } from "is-ip"
 import { useState } from "react"
 
 const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
 
 const Search = ({currentIP, setCurrentIP} : any) => {
     const [ip, setIp] = useState("")
+    const [isValid, setIsValid] = useState(true)
 
     const searchIP = async (e : any) => {
         e.preventDefault()
-        const res = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${geoKey}&ip=${ip}`)
-        const data =  await res.json()
-        setCurrentIP(data)
+
+        if (isIPv4(ip)){
+            const res = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${geoKey}&ip=${ip}`)
+            const data =  await res.json()
+            setCurrentIP(data)
+            setIsValid(true)
+        } else {
+            setIp("")
+            setIsValid(false)
+        }
     }
 
     return(
@@ -18,13 +27,13 @@ const Search = ({currentIP, setCurrentIP} : any) => {
                 IP Address Tracker
             </h1>
 
-            <form onSubmit={searchIP} className="rounded-lg bg-black shadow-lg my-[2em] w-[70%] sm:w-[60%] md:w-[50%] lg:w-[40%] flex items-center">
+            <form onSubmit={searchIP} className="rounded-lg bg-black shadow-lg my-[2em] w-[70%] sm:w-[60%] md:w-[50%] lg:w-[40%] flex items-center focus:outline-none">
                 <input 
                     type="text" 
                     value={ip}
                     onChange={(e) => setIp(e.target.value)}
-                    placeholder="Search for any IP address or domain"
-                    className="rounded-tl-lg rounded-bl-lg py-[1em] text-[18px] px-[1.5em] w-[85%]"
+                    placeholder={isValid ? 'Search for any IP address or domain' : 'Invalid IP Address'}
+                    className={`rounded-tl-lg rounded-bl-lg py-[1em] text-[18px] px-[1.5em] w-[85%] ${!isValid && 'placeholder:text-red-500'}`}
                     />
                 <button type="submit" className="text-white font-[500] w-[15%] text-[23px]">
                     &gt;

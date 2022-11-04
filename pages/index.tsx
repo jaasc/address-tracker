@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv';
 import { NextApiRequest } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -6,6 +7,7 @@ import Search from "../components/search";
 import { IPdetail } from '../types/interface';
 
 const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
+dotenv.config({ path: '.env' });
 
 export default function Home({ detail } : { detail: IPdetail }) : JSX.Element {
   const [currentIP, setCurrentIP] = useState(detail)

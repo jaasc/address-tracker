@@ -2,8 +2,6 @@ import { isIPv4 } from "is-ip";
 import { useState } from "react";
 import { IPdetail } from "../types/interface";
 
-const geoKey = process.env.NEXT_PUBLIC_GEO_KEY
-
 const Search = ({ currentIP, setCurrentIP } : { currentIP: IPdetail, setCurrentIP: React.Dispatch<React.SetStateAction<IPdetail>> }) : JSX.Element => {
     const [ip, setIp] = useState("")
     const [isValid, setIsValid] = useState(true)
@@ -12,7 +10,7 @@ const Search = ({ currentIP, setCurrentIP } : { currentIP: IPdetail, setCurrentI
         e.preventDefault()
 
         if (isIPv4(ip)){
-            const res = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${geoKey}&ip=${ip}`)
+            const res = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.NEXT_PUBLIC_GEO_KEY}&ip=${ip}`)
             const data =  await res.json()
             setCurrentIP(data)
             setIsValid(true)
